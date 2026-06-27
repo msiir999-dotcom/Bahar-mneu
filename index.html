@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منيو المأكولات البحرية الفاخر 🌊</title>
-    <!-- استدعاء خطوط عربية حديثة متناسقة مع الطابع البحري -->
+    <title>منيو المأكولات البحرية الواقعي 🌊</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --ocean-blue: #0077b6; /* أزرق المحيط */
-            --deep-sea: #03045e; /* أزرق الأعماق الداكن */
-            --coral-orange: #ff7f50; /* المرجاني البحري للتمييز */
-            --foam-white: #f0f8ff; /* لون رغوة البحر */
-            /* خلفية الكروت الشفافة مع تأثير الضباب الهلامي */
-            --card-glass: rgba(3, 4, 94, 0.65); 
+            --ocean-blue: #00b4d8;
+            --deep-sea: #03045e;
+            --coral-orange: #ff7f50;
+            --foam-white: #ffffff;
+            /* كروت شفافة جداً ونقية لإظهار الفيديو الواقعي بالخلفية */
+            --card-glass: rgba(255, 255, 255, 0.08); 
             --danger: #dc3545;
             --info: #00b4d8;
         }
@@ -32,20 +31,25 @@
             color: var(--foam-white);
             padding-bottom: 120px;
             overflow-x: hidden;
-            background-color: #011627;
+            background-color: #023e8a;
         }
 
-        /* حاوية الفيديو المتحرك في الخلفية */
-        .video-background {
+        /* حاوية فيديو الخلفية الواقعي المتحرك */
+        .video-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             z-index: -1;
-            pointer-events: none;
-            filter: brightness(0.4) contrast(1.1); /* تدميج الفيديو لراحة العين عند القراءة */
+            overflow: hidden;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.55) contrast(1.1); /* توازن الإضاءة لرؤية النصوص بوضوح */
         }
 
         .container {
@@ -56,27 +60,27 @@
             z-index: 2;
         }
 
-        /* الشاشة الترحيبية الشفافة */
+        /* الشاشة الترحيبية الواقعية الشفافة */
         .welcome-card {
-            background: rgba(3, 4, 94, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 2px solid rgba(0, 180, 216, 0.5);
+            background: rgba(2, 62, 138, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 24px;
             padding: 50px 20px;
             margin-top: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             text-align: center;
         }
 
         h1, h2, h3 {
             color: var(--foam-white);
             text-align: center;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
             font-weight: 700;
         }
         
-        h1 { font-size: 32px; margin-bottom: 5px; color: #00b4d8; }
+        h1 { font-size: 34px; margin-bottom: 5px; color: #fff; }
 
         .btn-royal {
             background-color: var(--coral-orange);
@@ -90,7 +94,7 @@
             transition: all 0.3s ease;
             margin: 10px;
             min-width: 180px;
-            box-shadow: 0 5px 15px rgba(255,127,80,0.4);
+            box-shadow: 0 5px 15px rgba(255,127,80,0.5);
         }
 
         .btn-royal:hover {
@@ -99,9 +103,9 @@
             transform: translateY(-2px);
         }
 
-        /* تصفح أقسام المنيو */
         .hidden { display: none !important; }
 
+        /* بار الأقسام العلوي الشفاف النقّي */
         .categories-nav {
             display: flex;
             gap: 10px;
@@ -109,19 +113,19 @@
             padding: 15px 10px;
             position: sticky;
             top: 0;
-            background: rgba(2, 62, 138, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(3, 4, 94, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 100;
-            border-bottom: 2px solid rgba(0, 180, 216, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             scrollbar-width: none;
         }
         .categories-nav::-webkit-scrollbar { display: none; }
 
         .category-btn {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--foam-white);
-            border: 1px solid #00b4d8;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 8px 18px;
             border-radius: 20px;
             cursor: pointer;
@@ -132,47 +136,46 @@
         }
 
         .category-btn.active {
-            background: #00b4d8;
-            color: var(--deep-sea);
-            box-shadow: 0 4px 10px rgba(0,180,216,0.4);
-            border-color: #00b4d8;
+            background: #ffffff;
+            color: #03045e;
+            box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+            border-color: #ffffff;
         }
 
         .menu-section { display: none; }
         .menu-section.active-section { display: block; animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .section-title { font-size: 22px; color: var(--coral-orange); margin: 25px 0 15px 0; text-align: right; border-right: 4px solid var(--coral-orange); padding-right: 8px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .section-title { font-size: 22px; color: #fff; margin: 25px 0 15px 0; text-align: right; border-right: 4px solid var(--coral-orange); padding-right: 8px; text-shadow: 1px 1px 4px rgba(0,0,0,0.6); }
 
-        /* كروت الوجبات الشفافة */
+        /* كروت الأطباق الشفافة الواقعية */
         .menu-item {
             background: var(--card-glass);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 18px;
-            padding: 12px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 14px;
             margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .item-main-content {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             align-items: center;
             width: 100%;
         }
 
         .item-img {
-            width: 90px;
-            height: 90px;
+            width: 95px;
+            height: 95px;
             border-radius: 14px;
             object-fit: cover;
-            border: 1.5px solid #00b4d8;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .item-details {
@@ -182,37 +185,36 @@
             justify-content: center;
         }
 
-        .item-title { font-size: 17px; font-weight: bold; color: var(--foam-white); line-height: 1.4; }
-        .item-desc { font-size: 12px; color: #b3e5fc; margin-top: 2px; line-height: 1.3; }
-        .item-price { color: var(--coral-orange); font-weight: bold; font-size: 16px; margin-top: 5px; }
+        .item-title { font-size: 18px; font-weight: 700; color: #ffffff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .item-desc { font-size: 12.5px; color: #e0f2fe; margin-top: 3px; line-height: 1.4; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .item-price { color: #fde047; font-weight: bold; font-size: 17px; margin-top: 6px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
         
         .quantity-control {
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(0,0,0,0.4);
-            padding: 5px 12px;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px 14px;
             border-radius: 20px;
-            border: 1px solid #00b4d8;
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
-        .q-btn { background: none; border: none; color: #00b4d8; font-size: 20px; font-weight: bold; cursor: pointer; width: 20px; }
-        .q-num { font-size: 15px; font-weight: bold; min-width: 15px; text-align: center; color: var(--foam-white); }
+        .q-btn { background: none; border: none; color: #ffffff; font-size: 22px; font-weight: bold; cursor: pointer; width: 20px; }
+        .q-num { font-size: 16px; font-weight: bold; min-width: 15px; text-align: center; color: #ffffff; }
 
-        /* أزرار الكابتن */
-        .captain-actions { display: flex; gap: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; width: 100%; }
+        .captain-actions { display: flex; gap: 8px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; width: 100%; }
         .btn-captain-edit { background: var(--info); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
         .btn-captain-del { background: var(--danger); color: white; border: none; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
 
-        /* البار السفلي الشفاف */
+        /* البار السفلي الزجاجي الواقعي */
         .cart-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(3, 4, 94, 0.75);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-top: 2.5px solid var(--coral-orange);
+            background: rgba(3, 4, 94, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
@@ -220,13 +222,13 @@
             max-width: 600px;
             margin: 0 auto;
             z-index: 99;
-            box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
         }
-        .btn-order { background: #28a745; color: #fff; border: none; padding: 12px 22px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 4px 10px rgba(40,167,69,0.4); }
+        .btn-order { background: #22c55e; color: #fff; border: none; padding: 12px 24px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 15px; box-shadow: 0 4px 12px rgba(34,197,94,0.4); }
 
         /* النوافذ (Modals) */
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
-        .modal-content { background: #03045e; border: 2px solid #00b4d8; border-radius: 20px; padding: 25px; width: 100%; max-width: 400px; text-align: center; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); }
+        .modal-content { background: #03045e; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 25px; width: 100%; max-width: 400px; text-align: center; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         
         .input-table, .captain-input, .captain-select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #00b4d8; background: #000; color: #fff; text-align: center; font-size: 16px; margin: 10px 0; font-weight: bold; outline: none; }
         .captain-select { text-align: right; direction: rtl; }
@@ -240,86 +242,83 @@
 </head>
 <body>
 
-    <!-- فيديو الخلفية البحري المتحرك المكرر مسبق الإعداد -->
-    <video class="video-background" autoplay loop muted playsinline>
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-underwater-light-beams-and-bubbles-40913-large.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <!-- فيديو واقعي ومباشر لأمواج الشاطئ بدقة عالية يعمل بذكاء في الخلفية -->
+    <div class="video-container">
+        <video autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1200&auto=format&fit=crop">
+            <source src="https://v1.assets.camelot.ai/videos/64c39f04-9ba0-428a-8be5-61329bf33671.mp4" type="video/mp4">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-sea-waves-crashing-on-shore-from-above-41528-large.mp4" type="video/mp4">
+        </video>
+    </div>
 
     <div class="container">
-        <!-- الشاشة الترحيبية البحرية الشفافة -->
+        <!-- الشاشة الترحيبية -->
         <div id="welcome-screen" class="welcome-card">
             <div style="font-size: 50px; margin-bottom: 10px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));">⚓🌊</div>
-            <h1>Ocean Feast</h1>
-            <p style="color: #b3e5fc; font-style: italic; margin-top: 5px; font-size: 16px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">أعرق مأكولات ومذاقات أعماق البحار</p>
-            <hr style="border-color: #00b4d8; width: 40%; margin: 20px auto; opacity: 0.5;">
+            <h1>Bahar Restaurant</h1>
+            <p style="color: #e0f2fe; font-style: italic; margin-top: 5px; font-size: 16px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">مأكولات بحرية طازجة على أصولها</p>
+            <hr style="border-color: rgba(255,255,255,0.2); width: 40%; margin: 20px auto;">
             <p style="margin-bottom: 25px; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">يرجى اختيار مكان تناول الوجبة لبدء الطلب:</p>
             <button class="btn-royal" onclick="setOrderType('صالة')">داخل الصالة 🍽️</button>
             <button class="btn-royal" onclick="setOrderType('توصيل')">توصيل / سفري 🚗</button>
         </div>
 
-        <!-- تطبيق المنيو المطور بعد الضغط -->
+        <!-- تطبيق المنيو -->
         <div id="main-app" class="hidden">
             <div style="text-align: center; margin-bottom: 15px;">
-                <h2 id="order-type-badge" style="font-size: 15px; color: var(--deep-sea); background: #00b4d8; padding: 6px 15px; border-radius: 20px; display: inline-block; font-weight: bold;"></h2>
+                <h2 id="order-type-badge" style="font-size: 15px; color: #fff; background: var(--coral-orange); padding: 6px 15px; border-radius: 20px; display: inline-block; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);"></h2>
             </div>
 
-            <!-- التنقل السلس بين الأقسام البحرية المتنوعة -->
+            <!-- الأقسام الكبيرة المتنوعة -->
             <div class="categories-nav">
-                <button class="category-btn active" onclick="switchPage('main-seafood', this)">🐟 الأطباق البحرية الرئيسية</button>
+                <button class="category-btn active" onclick="switchPage('main-seafood', this)">🐟 الأطباق الرئيسية</button>
                 <button class="category-btn" onclick="switchPage('sea-appetizers', this)">🦪 المقبلات والشوربات</button>
-                <button class="category-btn" onclick="switchPage('sea-desserts', this)">🍰 الحلويات الغربية</button>
-                <button class="category-btn" onclick="switchPage('sea-drinks', this)">🍹 العصائر والفرش</button>
+                <button class="category-btn" onclick="switchPage('sea-desserts', this)">🍰 الحلويات</button>
+                <button class="category-btn" onclick="switchPage('sea-drinks', this)">🍹 العصائر والكوكتيلات</button>
             </div>
 
-            <!-- قوائم الطعام الغنية بالصور البحرية -->
             <div class="menu-container">
-                <div id="main-seafood" class="menu-section active-section"><h2 class="section-title">الأطباق الفاخرة الطازجة</h2><div id="main-seafood-items"></div></div>
-                <div id="sea-appetizers" class="menu-section"><h2 class="section-title">المقبلات والشوربات البحرية</h2><div id="sea-appetizers-items"></div></div>
-                <div id="sea-desserts" class="menu-section"><h2 class="section-title">الحلويات الفاخرة المكملة</h2><div id="sea-desserts-items"></div></div>
+                <div id="main-seafood" class="menu-section active-section"><h2 class="section-title">الأطباق البحرية الطازجة</h2><div id="main-seafood-items"></div></div>
+                <div id="sea-appetizers" class="menu-section"><h2 class="section-title">المقبلات والشوربات الساخنة</h2><div id="sea-appetizers-items"></div></div>
+                <div id="sea-desserts" class="menu-section"><h2 class="section-title">الحلويات الفاخرة</h2><div id="sea-desserts-items"></div></div>
                 <div id="sea-drinks" class="menu-section"><h2 class="section-title">المشروبات والكوكتيلات المنعشة</h2><div id="sea-drinks-items"></div></div>
             </div>
 
-            <!-- لوحة تحكم إدارة الكابتن لتغيير أو إضافة الأطباق والصور -->
             <div class="admin-trigger">
                 <span class="admin-link" onclick="openCaptainPanel()">⚙️ لوحة تحكم كابتن الصالة (تعديل الأسعار والوجبات والصور)</span>
             </div>
 
-            <!-- بار السلة المدمج سفلياً لحساب التكلفة الكلية -->
             <div class="cart-bar">
                 <div>
-                    <span style="font-size: 13px; color: #b3e5fc;">إجمالي الحساب:</span>
-                    <div id="cart-total" style="font-size: 18px; font-weight: bold; color: var(--coral-orange);">0 د.ع</div>
+                    <span style="font-size: 13px; color: #e0f2fe;">إجمالي الحساب:</span>
+                    <div id="cart-total" style="font-size: 20px; font-weight: bold; color: #fde047;">0 د.ع</div>
                 </div>
                 <button class="btn-order" onclick="openCheckoutModal()">تأكيد وإرسال الطلب 🛒</button>
             </div>
         </div>
     </div>
 
-    <!-- نافذة تأكيد الطلب -->
+    <!-- نافذتا التأكيد والكابتن -->
     <div id="checkout-modal" class="modal">
         <div class="modal-content">
             <h3>تأكيد الطلب البحري 🧾</h3>
-            <p style="margin-top: 10px; color: #ccc;">إجمالي الحساب: <span id="modal-total" style="color: var(--coral-orange); font-weight: bold;">0</span> د.ع</p>
+            <p style="margin-top: 10px; color: #ccc;">إجمالي الحساب: <span id="modal-total" style="color: #fde047; font-weight: bold;">0</span> د.ع</p>
             <input type="text" id="table-or-address" class="input-table" placeholder="" required>
             <button class="btn-confirm" onclick="sendOrderToWhatsApp()">إرسال فوري للواتساب</button>
             <span class="close-modal" onclick="closeCheckoutModal()">إلغاء</span>
         </div>
     </div>
 
-    <!-- نافذة الكابتن المطورة لإدارة الأقسام -->
     <div id="captain-modal" class="modal">
         <div class="modal-content">
             <h3 style="color: #00b4d8; margin-bottom: 10px;">إدارة منيو الأعماق ⚙–</h3>
             <input type="hidden" id="edit-item-id">
-            <label style="display:block; text-align:right; font-size:12px; color:#ccc;">اختر قسم الوجبة:</label>
             <select id="item-category" class="captain-select">
-                <option value="main-seafood">🐟 الأطباق البحرية الرئيسية</option>
+                <option value="main-seafood">🐟 الأطباق الرئيسية</option>
                 <option value="sea-appetizers">🦪 المقبلات والشوربات</option>
-                <option value="sea-desserts">🍰 الحلويات الغربية</option>
-                <option value="sea-drinks">🍹 العصائر والفرش</option>
+                <option value="sea-desserts">🍰 الحلويات</option>
+                <option value="sea-drinks">🍹 العصائر والكوكتيلات</option>
             </select>
-            <input type="text" id="item-name" class="captain-input" placeholder="اسم الوجبة أو المشروب">
+            <input type="text" id="item-name" class="captain-input" placeholder="اسم الوجبة">
             <input type="text" id="item-desc" class="captain-input" placeholder="وصف قصير للمكونات">
             <input type="number" id="item-price" class="captain-input" placeholder="السعر بالدينار العراقي">
             <input type="text" id="item-image-url" class="captain-input" placeholder="رابط صورة الوجبة">
@@ -331,25 +330,25 @@
     <script>
         const WHATSAPP_NUMBER = "9647713561219", CAPTAIN_PASSWORD = "2026"; 
 
-        // داتا المنيو البحري المنوع الغني بالخيارات والصور عالية الدقة
+        // صور واقعية 100% تم اختيارها بدقة متناهية لتطابق الوجبات الحقيقية
         const defaultMenuData = {
             "main-seafood": [
-                { id: 1, name: "سمك مسكوف عراقي فاخر", desc: "سمك طازج مشوي على الحطب بالطريقة العراقية التقليدية مع التتبيلة البحرية الخاصة والعميقة.", price: 28000, img: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=300&auto=format&fit=crop" },
-                { id: 2, name: "قريدس (روبيان) جامبو مشوي", price: 24000, desc: "روبيان جامبو متبل بالأعشاب والليمون مشوي على اللهب، يقدم مع الأرز البسمتي بالزعفران.", img: "https://images.unsplash.com/photo-1551248429-40975aa4de74?q=80&w=300&auto=format&fit=crop" },
-                { id: 3, name: "طاجن ثمار البحر بالكريمة والجبن", price: 20000, desc: "تشكيلة غنية من الروبيان، الحبار والمحار مطبوخة بصلصة الكريمة الفرنسية الغنية مغطاة بالموزاريلا.", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=300&auto=format&fit=crop" }
+                { id: 1, name: "سمك مسكوف عراقي حقيقي", desc: "سمكة كاملة طازجة مشوية على جذوع حطب أشجار المشمش بالطريقة البغدادية الأصيلة والليمون.", price: 28000, img: "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?q=80&w=400&auto=format&fit=crop" },
+                { id: 2, name: "قريدس (روبيان) جامبو مشوي", price: 24000, desc: "جامبو روبيان متبل بصلصة الثوم الكلاسيكية، الليمون والأعشاب البحرية، مشوي على الفحم الفاخر.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=400&auto=format&fit=crop" },
+                { id: 3, name: "طاجن فواكه البحر بالكريمة والجبن", price: 20000, desc: "مزيج واقعي فاخر من الروبيان والحبار والمحار المطبوخ داخل طاجن فخاري بصلصة الكريمة الغنية والموزاريلا.", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=400&auto=format&fit=crop" }
             ],
             "sea-appetizers": [
-                { id: 4, name: "شوربة توم يوم البحرية الحارة", price: 9500, desc: "شوربة تايلندية شهيرة غنية بقطع المأكولات البحرية، عشب الليمون، والبهارات الحارة المنعشة.", img: "https://images.unsplash.com/photo-1547592165-e1d17fed6005?q=80&w=300&auto=format&fit=crop" },
-                { id: 5, name: "محار بحري طازج بالليمون (6 قطع)", price: 18000, desc: "قطع من المحار الفاخر المستورد يقدم بارداً على طبقة من الثلج مع شرائح الليمون الحامض.", img: "https://images.unsplash.com/photo-1553618551-fba689030290?q=80&w=300&auto=format&fit=crop" },
-                { id: 6, name: "كالماري مقرمش ذهبي", price: 8500, desc: "حلقات الكالماري الطازجة المقلية بطبقة مقرمشة خفيفة تقدم مع صلصة التارتار الفاخرة.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=300&auto=format&fit=crop" }
+                { id: 4, name: "شوربة ثمار البحر الكثيفة بالكريمة", price: 9500, desc: "شوربة بيضاء غنية بقطع بلح البحر، الجمبري، وقطع السمك الصغيرة الطازجة مع الكريمة الطاهية.", img: "https://images.unsplash.com/photo-1547592165-e1d17fed6005?q=80&w=400&auto=format&fit=crop" },
+                { id: 5, name: "محار بحري طازج بالليمون", price: 18000, desc: "قطع من المحار الطبيعي المفتوح على نصف قشرة يقدم مع شرائح الليمون وصلصة التارتار الحامضة.", img: "https://images.unsplash.com/photo-1553618551-fba689030290?q=80&w=400&auto=format&fit=crop" },
+                { id: 6, name: "كالماري مقرمش ذهبي حقيقي", price: 8500, desc: "حلقات كالماري حقيقية مغطاة بطبقة مقرمشة ومقلية بلون ذهبي فاتح، تقدم ساخنة مقرمشة.", img: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=400&auto=format&fit=crop" }
             ],
             "sea-desserts": [
-                { id: 7, name: "كعكة موس الشوكولاتة البلجيكية", price: 7500, desc: "موس الشوكولاتة الداكنة الناعمة مع طبقة من البسكويت المقرمش والكاكاو الغني.", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=300&auto=format&fit=crop" },
-                { id: 8, name: "تشيز كيك الفراولة والبلوبيري", price: 8000, desc: "التشيز كيك الكلاسيكي المخبوز ببطء، مغطى بصلصة الفراولة الطازجة والتوت البري.", img: "https://images.unsplash.com/photo-1524351199679-46cddf530c04?q=80&w=300&auto=format&fit=crop" }
+                { id: 7, name: "كعكة موس الشوكولاتة الفاخرة", price: 7500, desc: "طبقات من كعكة الشوكولاتة البلجيكية الغنية والناعمة تذوب في الفم تماماً.", img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=400&auto=format&fit=crop" },
+                { id: 8, name: "نيويورك تشيز كيك بالفراولة", price: 8000, desc: "التشيز كيك المخبوز الغني بجبنة الكريم مع طبقة غنية وثقيلة من مربى الفراولة الطبيعية.", img: "https://images.unsplash.com/photo-1524351199679-46cddf530c04?q=80&w=400&auto=format&fit=crop" }
             ],
             "sea-drinks": [
-                { id: 9, name: "كوكتيل المحيط الأزرق الفوار (بلو لاغون)", price: 6000, desc: "مزيج منعش وفوار بنكهة الكوراساو الزرقاء مع الليمون الطازج وأوراق النعناع الباردة.", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=300&auto=format&fit=crop" },
-                { id: 10, name: "عصير ليمون بالنعناع الفرش مثلج", price: 5000, desc: "عصير الليمون الطبيعي المعصور فوراً والمخفوق مع أوراق النعناع الطازجة والثلج المجروش.", img: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?q=80&w=300&auto=format&fit=crop" }
+                { id: 9, name: "كوكتيل بلو لاغون الأزرق المنعش", price: 6000, desc: "مزيج بارد حقيقي ومنعش يعكس لون البحر بقطع الليمون، النعناع والصودا الفوارة.", img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=400&auto=format&fit=crop" },
+                { id: 10, name: "عصير ليمون حامض بالنعناع الطازج", price: 5000, desc: "عصير ليمون فرش معصور مع أوراق النعناع الخضراء الحية وقطع الثلج الكثيفة.", img: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?q=40&w=400&auto=format&fit=crop" }
             ]
         };
 
@@ -357,12 +356,12 @@
         let orderType = ""; 
 
         try {
-            let localData = localStorage.getItem('marine_menu_data');
+            let localData = localStorage.getItem('marine_real_menu_data');
             if (localData && localData.trim() !== "" && localData !== "undefined") {
                 menuData = JSON.parse(localData);
             } else {
                 menuData = defaultMenuData;
-                localStorage.setItem('marine_menu_data', JSON.stringify(defaultMenuData));
+                localStorage.setItem('marine_real_menu_data', JSON.stringify(defaultMenuData));
             }
         } catch(e) { menuData = defaultMenuData; }
 
@@ -372,10 +371,9 @@
             orderType = type;
             document.getElementById('welcome-screen').classList.add('hidden');
             document.getElementById('main-app').classList.remove('hidden');
-            document.getElementById('order-type-badge').innerText = `نوع الطلب: ${type === 'صالة' ? 'طاولة داخل الصالة ⚓' : 'توصيل / سفري سريـع 🚗'}`;
+            document.getElementById('order-type-badge').innerText = `طريقة الاستلام الحالية: ${type === 'صالة' ? 'طاولة الصالة ⚓' : 'توصيل خارجي سريع 🚗'}`;
         }
 
-        // بناء وعرض المنتجات مدمج بها الصور الشفافة
         function renderMenu() {
             allItemsFlattened = {}; 
             for (let category in menuData) {
@@ -385,9 +383,7 @@
                 if (menuData[category] && menuData[category].length > 0) {
                     menuData[category].forEach(item => {
                         allItemsFlattened[item.id] = item; 
-                        
-                        let itemImgSrc = item.img ? item.img : "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&auto=format&fit=crop";
-                        let itemDescText = item.desc ? item.desc : "مكونات بحرية طازجة وطبيعية 100%.";
+                        let itemImgSrc = item.img ? item.img : "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=400&auto=format&fit=crop";
                         
                         const div = document.createElement('div');
                         div.className = "menu-item";
@@ -396,7 +392,7 @@
                                 <img src="${itemImgSrc}" class="item-img" alt="${item.name}">
                                 <div class="item-details">
                                     <div class="item-title">${item.name}</div>
-                                    <div class="item-desc">${itemDescText}</div>
+                                    <div class="item-desc">${item.desc || 'مكونات طازجة 100%.'}</div>
                                     <div class="item-price">${item.price.toLocaleString()} د.ع</div>
                                 </div>
                                 <div class="quantity-control">
@@ -405,11 +401,11 @@
                                     <button class="q-btn" onclick="updateQty(${item.id}, 1)">+</button>
                                 </div>
                             </div>
-                            ${isCaptainMode ? `<div class="captain-actions"><button class="btn-captain-edit" onclick="setupEditItem('${category}', ${item.id})">تعديل الصنف ✏️</button><button class="btn-captain-del" onclick="deleteItem('${category}', ${item.id})">حذف نهائي 🗑️</button></div>` : ''}
+                            ${isCaptainMode ? `<div class="captain-actions"><button class="btn-captain-edit" onclick="setupEditItem('${category}', ${item.id})">تعديل ✏️</button><button class="btn-captain-del" onclick="deleteItem('${category}', ${item.id})">حذف 🗑️</button></div>` : ''}
                         `;
                         container.appendChild(div);
                     });
-                } else { container.innerHTML = `<p style="color:#ccc; font-size:14px; text-align:center; padding:15px;">هذا القسم فارغ حالياً.</p>`; }
+                } else { container.innerHTML = `<p style="color:#fff; text-align:center; padding:15px;">لا توجد وجبات هنا.</p>`; }
             }
         }
 
@@ -439,8 +435,8 @@
 
         function openCaptainPanel() {
             if (!isCaptainMode) {
-                let checkPass = prompt("الرجاء إدخال الرمز السري للكابتن للوصول:");
-                if (checkPass === CAPTAIN_PASSWORD) { isCaptainMode = true; alert("🔓 تم تفعيل وضع التعديل بنجاح!"); renderMenu(); } else { alert("❌ الرمز خاطئ!"); return; }
+                let checkPass = prompt("أدخل رمز الكابتن لتفعيل وضع التعديل البصري:");
+                if (checkPass === CAPTAIN_PASSWORD) { isCaptainMode = true; alert("🔓 تم الدخول بنجاح ككابتن صالة!"); renderMenu(); } else { alert("❌ الرمز خاطئ!"); return; }
             }
             document.getElementById('captain-modal').style.display = 'flex';
         }
@@ -452,8 +448,8 @@
             let item = menuData[category].find(p => p.id === id);
             if(item) {
                 document.getElementById('edit-item-id').value = item.id; document.getElementById('item-category').value = category;
-                document.getElementById('item-name').value = item.name; document.getElementById('item-desc').value = item.desc ? item.desc : "";
-                document.getElementById('item-price').value = item.price; document.getElementById('item-image-url').value = item.img ? item.img : "";
+                document.getElementById('item-name').value = item.name; document.getElementById('item-desc').value = item.desc || "";
+                document.getElementById('item-price').value = item.price; document.getElementById('item-image-url').value = item.img || "";
                 document.getElementById('captain-modal').style.display = 'flex';
             }
         }
@@ -463,48 +459,41 @@
             const name = document.getElementById('item-name').value; const desc = document.getElementById('item-desc').value;
             const price = parseInt(document.getElementById('item-price').value); const imgUrl = document.getElementById('item-image-url').value;
             
-            if(!name || !price) { alert("الرجاء ملأ الحقول المطلوبة!"); return; }
+            if(!name || !price) { alert("املاً الاسم والسعر رجاءً!"); return; }
             if(id) {
                 for (let cat in menuData) { menuData[cat] = menuData[cat].filter(p => p.id != id); }
                 menuData[category].push({ id: parseInt(id), name, desc, price, img: imgUrl });
             } else { menuData[category].push({ id: Date.now(), name, desc, price, img: imgUrl }); }
-            localStorage.setItem('marine_menu_data', JSON.stringify(menuData));
-            alert("✅ تم التحديث بنجاح!"); closeCaptainPanel(); renderMenu(); updateCartTotal();
+            localStorage.setItem('marine_real_menu_data', JSON.stringify(menuData));
+            alert("✅ تم الحفظ والتحديث بنجاح!"); closeCaptainPanel(); renderMenu(); updateCartTotal();
         }
 
         function deleteItem(category, id) {
-            if(confirm("هل تود الحذف بشكل نهائي؟")) { menuData[category] = menuData[category].filter(p => p.id !== id); if(cart[id]) delete cart[id]; localStorage.setItem('marine_menu_data', JSON.stringify(menuData)); renderMenu(); updateCartTotal(); }
+            if(confirm("حذف هذا الطبق نهائياً؟")) { menuData[category] = menuData[category].filter(p => p.id !== id); if(cart[id]) delete cart[id]; localStorage.setItem('marine_real_menu_data', JSON.stringify(menuData)); renderMenu(); updateCartTotal(); }
         }
 
         function openCheckoutModal() {
             let total = 0; for (let id in cart) total += cart[id];
-            if (total === 0) { alert("يرجى إضافة الأطباق البحرية أولاً للسلة!"); return; }
+            if (total === 0) { alert("أضف أطباقك اللذيذة للسلة أولاً!"); return; }
             
             const inputField = document.getElementById('table-or-address');
-            if (orderType === 'صالة') {
-                inputField.placeholder = "اكتب رقم الطاولة هنا (مثال: طاولة 5)";
-            } else {
-                inputField.placeholder = "اكتب عنوان التوصيل بالتفصيل + رقم الهاتف";
-            }
+            inputField.placeholder = orderType === 'صالة' ? "اكتب رقم الطاولة (مثال: طاولة رقم 4)" : "اكتب عنوان التوصيل بالتفصيل + رقم هاتف فعال";
             document.getElementById('checkout-modal').style.display = 'flex';
         }
         function closeCheckoutModal() { document.getElementById('checkout-modal').style.display = 'none'; }
 
         function sendOrderToWhatsApp() {
             const infoDetail = document.getElementById('table-or-address').value;
-            if (!infoDetail) { 
-                alert(orderType === 'صالة' ? "يرجى كتابة رقم طاولة الصالة!" : "يرجى كتابة تفاصيل التوصيل الكاملة!"); 
-                return; 
-            }
+            if (!infoDetail) { alert(orderType === 'صالة' ? "يرجى تحديد رقم الطاولة!" : "يرجى كتابة عنوان التوصيل والهاتف!"); return; }
             
             let itemsDetails = [], total = 0;
-            for (let id in cart) { if(allItemsFlattened[id]) { itemsDetails.push(`• ${allItemsFlattened[id].name} (عدد ${cart[id]})`); total += cart[id] * allItemsFlattened[id].price; } }
+            for (let id in cart) { if(allItemsFlattened[id]) { itemsDetails.push(`• ${allItemsFlattened[id].name} (العدد ${cart[id]})`); total += cart[id] * allItemsFlattened[id].price; } }
             
-            let textMessage = `🌊 *طلب جديد من منيو المأكولات البحرية* 🌊\n\n`;
-            textMessage += `📌 *نوع الطلب:* ${orderType === 'صالة' ? 'طاولة داخل الصالة ⚓' : 'توصيل وسفري 🚗'}\n`;
-            textMessage += `📍 *الموقع / التفاصيل:* ${infoDetail}\n\n`;
-            textMessage += `📝 *الوجبات والطلبات:*\n${itemsDetails.join('\n')}\n\n`;
-            textMessage += `💰 *الحساب الإجمالي:* ${total.toLocaleString()} د.ع\n`;
+            let textMessage = `🌊 *طلب مأكولات بحرية واقعي جديد* 🌊\n\n`;
+            textMessage += `📌 *طريقة الطلب:* ${orderType === 'صالة' ? 'طاولة داخل المطعم ⚓' : 'توصيل للمنزل 🚗'}\n`;
+            textMessage += `📍 *الموقع / الطاولة:* ${infoDetail}\n\n`;
+            textMessage += `📝 *تفاصيل الأطباق:*\n${itemsDetails.join('\n')}\n\n`;
+            textMessage += `💰 *الحساب الكلي:* ${total.toLocaleString()} د.ع\n`;
             textMessage += `⏰ *الوقت:* ${new Date().toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'})}`;
             
             closeCheckoutModal(); 
